@@ -1,0 +1,77 @@
+body {
+    margin: 0;
+    padding: 0;
+    padding-top: 20px;
+    background-color: brown;
+}
+
+#gameZone {
+    background-color: teal;
+    width: 650px;
+    height: 650px;
+    margin: 0 auto;
+}
+
+#red {
+    background-color: red;
+}
+
+#green {
+    background-color: green;
+}
+
+#blue {
+    background-color: blue;
+}
+
+.sell {
+    width: 48px;
+    height: 48px;
+    background-color: white;
+    float: left;
+    border: 1px solid brown;
+}
+
+#score {
+    width: 650px;
+    height: 80px;
+    background-color: #fff;
+    margin: 0 auto;
+    margin-top: 15px;
+}
+
+.userScores {
+    padding-top: 20px;
+    padding-left: 15px;
+    width: 30%;
+    height: 80px;
+    float: left;
+    /* display: ; */
+    /* justify-content: center;
+    align-items: center; */
+    /* background-color: red; */
+}
+
+.userScores p {
+    /* clear: right; */
+    margin: -40px 0px 0px 130px;
+}
+
+.userScores:nth-child(1) {
+    padding-left: 35px;
+    font-family: fantasy;
+    font-size: 34px;
+    color: blue;
+}
+
+.userScores:nth-child(2) {
+    font-family: fantasy;
+    font-size: 34px;
+    color: red;
+}
+
+.userScores:nth-child(3) {
+    font-family: fantasy;
+    font-size: 34px;
+    color: green;
+}

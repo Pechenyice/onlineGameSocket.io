@@ -1,0 +1,25 @@
+{
+  "name": "my_first_try",
+  "version": "1.0.0",
+  "description": "plz_work",
+  "main": "index.js",
+  "scripts": {
+    "test": "console.log(\"connected\")",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "0"
+  },
+  "keywords": [
+    "0"
+  ],
+  "author": "me",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "lodash": "^4.17.15",
+    "socket.io": "^2.3.0"
+  }
+}
