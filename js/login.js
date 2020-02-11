@@ -1,8 +1,6 @@
 window.onload = () => {
     var guestButton = document.getElementById("guestButton");
-    guestButton.addEventListener('click', guestButtonClick);
-
-    function guestButtonClick() {
+    guestButton.addEventListener('click', () => {
         document.getElementById('guestName').style.opacity = '1';
         document.getElementById('guestForm').style.marginTop = '35%';
         document.getElementById('loginForm').style.display = 'none';
@@ -18,12 +16,7 @@ window.onload = () => {
         setTimeout(() => {
             guestButton.innerHTML = "<p>Confirm</p>";
         }, 500);
-        guestButton.addEventListener('click', () => {
-            if (guestName.value != '' || guestName.value != ' ') {
-                
-            }
-        });
-    }
+    });
 
     var backRegister = document.getElementById('backRegister');
 

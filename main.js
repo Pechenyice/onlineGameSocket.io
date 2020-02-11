@@ -4,6 +4,8 @@ const app = express();
 app.use(express.static(__dirname + '/'));
 
 app.get('/game', function(req, res) {
+  console.log('try');
+  console.log(req.body);
   res.sendFile(__dirname + "/html/game.html");
 });
 

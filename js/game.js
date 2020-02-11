@@ -1,3 +1,4 @@
+var name;
 window.onload = function() {
     var user = {
         currentID: -1,

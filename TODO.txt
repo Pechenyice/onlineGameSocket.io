@@ -4,3 +4,4 @@ game score
 change position on sell click 
 clear IDS
 splice positions on disconnect
+get parametrs at server
