@@ -1,189 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="http://localhost:8081/socket.io/socket.io.js"></script>
-    <script src="js/game.js"></script>
+    <link rel="stylesheet" href="css/login.css">
+    <script src="js/login.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Om-nom your friends!</title>
+    <title>Are you ready?</title>
 </head>
 <body>
-    <div id="gameZone">
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-        <div class="sell"></div>
-    </div>
-    <div id="score">
-        <div class="userScores">user 1: <p id="blueScore">0</p></div>
-        <div class="userScores">user 2: <p id="redScore">0</p></div>
-        <div class="userScores">user 3: <p id="greenScore">0</p></div>
+    <h1 id="animText1">Join the game</h1>
+    <h1 id="animText3">Use arrows to move</h1>
+    <div id="mainSection">
+        <div id="guestEnter">
+            <div id="loginRegister"><p><</p></div>
+            <div id="guestForm">
+                <input type="text" value="Введите имя" name="nickname" id="guestName"></input>
+                <div id="guestButton"><p>Enter as guest</p></div>
+            </div>
+        </div>
+
+        <div id="dataBaseEnter">
+            <div id="backRegister"><p><</p></div>
+            <div id="loginForm">
+                <input type="text" name="nickname" value="Введите имя" id="loginName"></input>
+                <input type="text" name="nickname" value="Введите пароль" id="loginPassword"></input>
+            </div>
+            <div id="buttons">
+                <div id="loginButton"><p>Log in</p></div>
+                <div id="registerButton"><p>Sign Up</p></div>
+            </div>
+            <div id="registerForm">
+                <input type="text" name="nickname" value="Введите имя" id="registerName"></input>
+                <input type="text" name="nickname" value="Введите пароль" id="registerPassword"></input>
+            </div>
+        </div>
     </div>
 </body>
 </html>

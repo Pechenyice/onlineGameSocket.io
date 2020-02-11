@@ -2,4 +2,376 @@ body {
     margin: 0;
     padding: 0;
     background-color: #7CACE1;
+    padding-top: 5%;
+    width: 100%;
+    overflow: hidden;
+    /* height: 100%; */
+}
+
+#animText1 {
+    /* background-color: red; */
+    position: absolute;
+    font-size: 70px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, .5);
+    transform: rotateZ(-20deg);
+    top: 15%;
+    left: 5%;
+    animation-name: textAnim;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+#animText3 {
+    /* background-color: red; */
+    position: absolute;
+    font-size: 70px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, .5);
+    transform: rotateZ(10deg);
+    bottom: 5%;
+    right: 5%;
+    animation-name: textAnim;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+#backRegister {
+    position: absolute;
+    left: calc(50% - 50px);
+    top: calc(50% - 50px);
+    font-size: 38px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    letter-spacing: .5px;
+    color: #FF9E6A;
+    background-color: #fff;
+    /* background-color: hotpink; */
+    border-radius: 50px;
+    border: 2px solid white;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    opacity: 0;
+    display: none;
+    transition: .5s;
+    cursor: pointer;
+}
+
+#backRegister:hover {
+    transition: .5s;
+    background-color: #FF9E6A;
+    box-shadow: 0 0 35px #FF9E6A;
+    color: white;
+    cursor: pointer;
+    border: 2px solid #FF9E6A;
+}
+
+#backRegister p {
+    height: max-content;
+    margin: auto;
+}
+
+#loginRegister {
+    position: absolute;
+    left: calc(50% - 50px);
+    top: calc(50% - 50px);
+    font-size: 38px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    letter-spacing: .5px;
+    color: #FF9E6A;
+    background-color: #fff;
+    /* background-color: hotpink; */
+    border-radius: 50px;
+    border: 2px solid white;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    opacity: 0;
+    display: none;
+    transition: .5s;
+    cursor: pointer;
+}
+
+#loginRegister:hover {
+    transition: .5s;
+    background-color: #FF9E6A;
+    box-shadow: 0 0 35px #FF9E6A;
+    color: white;
+    cursor: pointer;
+    border: 2px solid #FF9E6A;
+}
+
+#loginRegister p {
+    height: max-content;
+    margin: auto;
+}
+
+#mainSection {
+    position: absolute;
+    width: 60%;
+    height: 80%;
+    left: 20%;
+    /* background-color: red; */
+}
+
+#guestEnter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    /* background-color: blue; */
+    height: 100%;
+}
+
+#guestEnter #guestForm {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 25%;
+    height: 50%;
+    transition: .5s;
+    /* background-color: black; */
+}
+
+#guestEnter #guestForm #guestName {
+    margin-top: 20%;
+    margin-left: 10%;
+    width: 80%;
+    height: 15%;
+    font-size: 24px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    letter-spacing: .5px;
+    color: #FF9E6A;
+    border-radius: 25px;
+    border: 2px #7CACE1 solid;
+    opacity: 0;
+    transition: .5s;
+    text-align: center;
+}
+
+#guestEnter #guestForm #guestButton {
+    margin-top: 10%;
+    margin-left: 20%;
+    width: 60%;
+    height: 20%;
+    background-color: #fff;
+    border-radius: 40px;
+    font-size: 24px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    letter-spacing: .5px;
+    color: #FF9E6A;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    transition: .5s;
+    box-shadow: 0 0 25px rgba(255,255,255,0);
+}
+
+#guestButton p {
+    height: max-content;
+    margin: auto;
+}
+
+#guestEnter #guestForm #guestButton:hover {
+    transition: .5s;
+    background-color: #FF9E6A;
+    box-shadow: 0 0 35px #FF9E6A;
+    color: white;
+    cursor: pointer;
+}
+
+#dataBaseEnter {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    /* background-color: brown; */
+    height: 100%;
+    opacity: 1;
+    transition: .5s;
+}
+
+#dataBaseEnter #loginForm {
+    width: 80%;
+    margin: 0 auto;
+    left: 10%;
+    height: 15%;
+    top: 5%;
+    /* background-color: crimson; */
+    overflow: hidden;
+    position: absolute;
+    transition: .5;
+    opacity: 0;
+}
+
+#dataBaseEnter #loginForm #loginName {
+    margin-top: 20%;
+    margin-left: 10%;
+    width: 80%;
+    height: 20%;
+    font-size: 24px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    letter-spacing: .5px;
+    color: #FF9E6A;
+    border-radius: 25px;
+    border: 2px #7CACE1 solid;
+    /* opacity: 0; */
+    transition: .5s;
+    text-align: center;
+}
+
+#dataBaseEnter #loginForm #loginPassword {
+    margin-top: 10%;
+    margin-left: 10%;
+    width: 80%;
+    height: 20%;
+    font-size: 24px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    letter-spacing: .5px;
+    color: #FF9E6A;
+    border-radius: 25px;
+    border: 2px #7CACE1 solid;
+    /* opacity: 0; */
+    transition: .5s;
+    text-align: center;
+}
+
+#dataBaseEnter #buttons {
+    /* box-sizing: border-box; */
+    width: 80%;
+    margin: 0 auto;
+    height: 60%;
+    /* margin-top: 5%; */
+    /* background-color: rgb(75, 20, 138); */
+    /* padding-top: 20%; */
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    transition: .5s;
+}
+
+#dataBaseEnter #buttons #loginButton {
+    /* margin-left: 20%; */
+    position: absolute;
+    top: 30%;
+    left: 20%;
+    top: 25%;
+    width: 60%;
+    height: 20%;
+    background-color: #fff;
+    border-radius: 40px;
+    font-size: 24px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    letter-spacing: .5px;
+    color: #FF9E6A;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    transition: .5s;
+    box-shadow: 0 0 25px rgba(255,255,255,0);
+    cursor: pointer;
+}
+
+#dataBaseEnter #buttons #loginButton:hover {
+    transition: .5s;
+    background-color: #FF9E6A;
+    box-shadow: 0 0 35px #FF9E6A;
+    color: white;
+    cursor: pointer;
+}
+
+#dataBaseEnter #buttons #registerButton {
+    position: absolute;
+    width: 60%;
+    height: 20%;
+    top: 55%;
+    left: 20%;
+    background-color: #fff;
+    border-radius: 40px;
+    font-size: 24px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    letter-spacing: .5px;
+    color: #FF9E6A;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    transition: .5s;
+    box-shadow: 0 0 25px rgba(255,255,255,0);
+    cursor: pointer;
+}
+
+#dataBaseEnter #buttons #registerButton:hover {
+    transition: .5s;
+    background-color: #FF9E6A;
+    box-shadow: 0 0 35px #FF9E6A;
+    color: white;
+    cursor: pointer;
+}
+
+#dataBaseEnter #registerForm {
+    position: absolute;
+    top: 80%;
+    width: 80%;
+    left: 10%;
+    height: 15%;
+    /* margin-top: 5%; */
+    /* background-color: rgb(20, 220, 63); */
+    overflow: hidden;
+    transition: .5;
+    opacity: 0;
+}
+
+#dataBaseEnter #registerForm #registerName {
+    margin-top: 20%;
+    margin-left: 10%;
+    width: 80%;
+    height: 20%;
+    font-size: 24px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    letter-spacing: .5px;
+    color: #FF9E6A;
+    border-radius: 25px;
+    border: 2px #7CACE1 solid;
+    /* opacity: 0; */
+    transition: .5s;
+    text-align: center;
+}
+
+#dataBaseEnter #registerForm #registerPassword {
+    margin-top: 10%;
+    margin-left: 10%;
+    width: 80%;
+    height: 20%;
+    font-size: 24px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    letter-spacing: .5px;
+    color: #FF9E6A;
+    border-radius: 25px;
+    border: 2px #7CACE1 solid;
+    /* opacity: 0; */
+    transition: .5s;
+    text-align: center;
+}
+
+@keyframes buttonChange {
+    0% {opacity: 1;}
+    50% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@keyframes buttonBackChange {
+    0% {opacity: 1;}
+    50% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@keyframes textAnim {
+    0% {font-size: 70px;}
+    50% {font-size: 65px;}
+    100% {font-size: 70px;}
 }

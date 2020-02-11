@@ -2,3 +2,5 @@ TODO:
 game logic 
 game score 
 change position on sell click 
+clear IDS
+splice positions on disconnect
