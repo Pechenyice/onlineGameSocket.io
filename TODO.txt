@@ -1,3 +1,4 @@
 TODO: 
 game logic 
 game score 
+change position on sell click 

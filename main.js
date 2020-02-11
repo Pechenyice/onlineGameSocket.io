@@ -4,7 +4,11 @@ const app = express();
 app.use(express.static(__dirname + '/'));
 
 app.get('/game', function(req, res) {
-  res.sendFile(__dirname + "/game.html");
+  res.sendFile(__dirname + "/index.html");
+});
+
+app.get('/', function(req, res) {
+  res.sendFile(__dirname + "/html/login.html");
 });
 
 app.use(express.urlencoded());
