@@ -1,4 +1,9 @@
+
+
 window.onload = () => {
+    var canBeConnected = 0;
+
+
     var guestButton = document.getElementById("guestButton");
     guestButton.addEventListener('click', () => {
         document.getElementById('guestName').style.opacity = '1';
@@ -37,6 +42,7 @@ window.onload = () => {
         setTimeout(() => {
             guestButton.innerHTML = "<p>Enter as guest</p>";
         }, 500);
+        document.getElementById('guestCheck').setAttribute('href', 'javascropt:0');
     });
 
     var active = 0;
@@ -140,7 +146,22 @@ window.onload = () => {
         guestName.value = "";
     });
     guestName.addEventListener('focusout', () => {
-        if (guestName.value == "" || guestName.value == " ") guestName.value = "Введите имя";
+        if (guestName.value == "" || guestName.value == " ") {
+            guestName.value = "Введите имя";
+        } else {
+            var xhr = new XMLHttpRequest();
+            xhr.open('post', '/newUserName');
+            xhr.setRequestHeader("Content-type", "application/json");
+            // alert(JSON.stringify({username: guestName.value}));
+            xhr.send(JSON.stringify({username: guestName.value}));
+            xhr.onload = () => {
+                // alert(JSON.parse(xhr.response).value);
+                canBeConnected = JSON.parse(xhr.response).value;
+                if (canBeConnected) {
+                    document.getElementById('guestCheck').setAttribute('href', '/game');
+                }
+            }
+        }
     });
 
     var loginName = document.getElementById('loginName');

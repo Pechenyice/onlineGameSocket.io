@@ -8,6 +8,10 @@ body {
     /* height: 100%; */
 }
 
+.link {
+    text-decoration: none;
+}
+
 #animText1 {
     /* background-color: red; */
     position: absolute;

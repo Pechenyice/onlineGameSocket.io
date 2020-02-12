@@ -1,10 +1,11 @@
-var name;
+
 window.onload = function() {
     var user = {
         currentID: -1,
         color: 'none',
         sellID: -1,
-        myGameId: -1
+        myGameId: -1,
+        myUserName: 'user'
     };
     var users = [];
 
@@ -17,6 +18,14 @@ window.onload = function() {
                 user.color = data.color;
                 user.sellID = data.sellID;
                 user.myGameId = data.socketID;
+                user.myUserName = data.myUserName;
+                if (data.color = 'blue') {
+                    document.getElementsByClassName('userScores')[0].innerHTML = data.myUserName + ": <p id='blueScore'>0</p>";
+                } else if (data.color = 'red') {
+                    document.getElementsByClassName('userScores')[1].innerHTML = data.myUserName + ": <p id='redScore'>0</p>";
+                } else if (data.color = 'green') {
+                    document.getElementsByClassName('userScores')[2].innerHTML = data.myUserName + ": <p id='greenScore'>0</p>";
+                }
                 // users.push(user);
                 users[socket.id] = user;
                 console.log(users);
@@ -26,6 +35,13 @@ window.onload = function() {
 
             if (data.answerID == 1){
                 document.getElementsByClassName('sell')[data.sellID].setAttribute('id', data.color);
+                if (data.color = 'blue') {
+                    document.getElementById('blueScore').innerHTML = data.newUserName;
+                } else if (data.color = 'red') {
+                    document.getElementById('redScore').innerHTML = data.newUserName;
+                } else if (data.color = 'green') {
+                    document.getElementById('greenScore').innerHTML = data.newUserName;
+                }
                 console.log(data);
             }
 

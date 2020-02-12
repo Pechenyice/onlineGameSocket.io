@@ -1,16 +1,32 @@
 const express = require('express');
+const bodyParser = require("body-parser");
 
 const app = express();
 app.use(express.static(__dirname + '/'));
 
 app.get('/game', function(req, res) {
-  console.log('try');
-  console.log(req.body);
+  // console.log('try');
+  // console.log(req.body);
   res.sendFile(__dirname + "/html/game.html");
 });
 
 app.get('/', function(req, res) {
+  console.log(req.body);
+  res.write();
   res.sendFile(__dirname + "/index.html");
+});
+
+var jsonParser = bodyParser.json();
+
+var username;
+
+app.post('/newUserName',jsonParser, function(req, res) {
+  // console.log(req);
+  // console.log(req.body);
+  username = req.body.username;
+  // console.log(JSON.parse(req.body).username);
+  console.log(username);
+  res.send(JSON.stringify({'value': 1}));
 });
 
 app.use(express.urlencoded());
@@ -29,8 +45,11 @@ sio.sockets.on('connection', (socket) => {
     myID: -1,
     myColor: '404',
     mySell: -1,
-    socketID: socket.id
+    socketID: socket.id,
+    myUserName: username
   }
+  // console.log(username);
+  // console.log(userObject.myUserName);
   users++;
   if (users == 1) {
     color = 'blue';
@@ -61,8 +80,9 @@ sio.sockets.on('connection', (socket) => {
       userObject.myColor = 'red';
       userObject.mySell = 85;
       clients.splice(1, 0, userObject);
-      socket.json.send({'socketID': userObject.socketID, 'answerID': 0, 'currentID': 2, 'color': 'red', 'sellID': 85});
-      socket.broadcast.json.send({'answerID': 1, 'currentID': 2, 'color': 'red', 'sellID': 85});
+      // console.log(userObject.myUserName);
+      socket.json.send({'socketID': userObject.socketID, 'myUserName':userObject.myUserName, 'answerID': 0, 'currentID': 2, 'color': 'red', 'sellID': 85});
+      socket.broadcast.json.send({'answerID': 1,'newUserName':userObject.myUserName, 'currentID': 2, 'color': 'red', 'sellID': 85});
     }
   }
 
@@ -78,8 +98,8 @@ sio.sockets.on('connection', (socket) => {
       userObject.myColor = 'blue';
       userObject.mySell = 84;
       clients.unshift(userObject);
-      socket.json.send({'socketID': userObject.socketID, 'answerID': 0, 'currentID': 1, 'color': 'blue', 'sellID': 84});
-      socket.broadcast.json.send({'answerID': 1, 'currentID': 1, 'color': 'blue', 'sellID': 84});
+      socket.json.send({'socketID': userObject.socketID,'myUserName':userObject.myUserName, 'answerID': 0, 'currentID': 1, 'color': 'blue', 'sellID': 84});
+      socket.broadcast.json.send({'answerID': 1,'newUserName':userObject.myUserName, 'currentID': 1, 'color': 'blue', 'sellID': 84});
     }
   }
   if (!needToUnshiftFirst && !needToUnshiftSecond) {
@@ -87,13 +107,13 @@ sio.sockets.on('connection', (socket) => {
     userObject.myColor = color;
     userObject.mySell = sellID;
     clients.push(userObject);
-    socket.json.send({'socketID': userObject.socketID, 'answerID': 0, 'currentID': users, 'color': color, 'sellID': sellID});
-    socket.broadcast.json.send({'answerID': 1, 'currentID': users, 'color': color, 'sellID': sellID});
+    socket.json.send({'socketID': userObject.socketID,'myUserName':userObject.myUserName, 'answerID': 0, 'currentID': users, 'color': color, 'sellID': sellID});
+    socket.broadcast.json.send({'answerID': 1, 'newUserName':userObject.myUserName, 'currentID': users, 'color': color, 'sellID': sellID});
   }
   // console.log(clients);
   if (users > 1) {
     for (var i = 0; i < users; i++) {
-      socket.json.send({'answerID': 1, 'currentID': clients[i].myID, 'color': clients[i].myColor, 'sellID': clients[i].mySell});
+      socket.json.send({'answerID': 1,'newUserName': userObject.myUserName , 'currentID': clients[i].myID, 'color': clients[i].myColor, 'sellID': clients[i].mySell});
     }
   }
   socket.on('message', function(data) {
@@ -155,6 +175,8 @@ sio.sockets.on('connection', (socket) => {
       if (userObject.myID == clients[i].myID) {
         socket.broadcast.json.send({'answerID': 2, 'currentID': clients[i].myID, 'color': clients[i].myColor, 'sellID': clients[i].mySell});
         clients.splice(i, 1);
+        var positionsMap = positions.reduce(function(map,id){map[id]=true; return map;},{});
+        console.log(positionsMap);
       }
     }
     // console.log(clients);
