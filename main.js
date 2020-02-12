@@ -36,7 +36,7 @@ app.use(express.urlencoded());
 const sio = require('socket.io').listen(8081);
 var users = 0;
 var color = 'blue';
-var clients = [];
+var clients = {};
 var positions = [];
 
 sio.sockets.on('connection', (socket) => {
@@ -48,6 +48,16 @@ sio.sockets.on('connection', (socket) => {
     color = 'green';
   }
   users++;
+
+  // if (users >= 1 ) {
+  //   if ()
+  // }
+
+
+
+
+
+
   clients[socket.id] = {
     'sell': sellID,
     'color': color,
@@ -94,13 +104,10 @@ sio.sockets.on('connection', (socket) => {
 
 
   socket.on('disconnect', function() {
-    console.log(clients);
-    for (var key in clients) {
-      if (socket.id == key) {
-        clients.splice(key, 1);
-      }
-    }
-    console.log(clients);
+    // console.log(clients);
+    // console.log(clients);
+    socket.broadcast.json.send({'answerID': 4, 'sell': clients[socket.id].sell, 'color': clients[socket.id].color});
+    delete clients[socket.id];
     users--;
 	});
 });

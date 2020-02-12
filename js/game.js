@@ -55,13 +55,10 @@ window.onload = function() {
                     document.getElementById('greenScore').innerHTML = data.userName+': <span id="blueScoreValue">0</span>';
                 }
             }
-            //////////////////////
-            // console.log(data.answerID);
-            // alert('sent');
+
+
+
             if (data.answerID == 3){
-                // alert("dsf")
-                // user.color = data.color;
-                // user.sellID = data.sellID;
                 for (var i = 0; i < 169; i++) {
                    if (document.getElementsByClassName('sell')[i].getAttribute('id') == data.color) document.getElementsByClassName('sell')[i].removeAttribute('id', data.color);
                 }
@@ -69,6 +66,18 @@ window.onload = function() {
                 document.getElementsByClassName('sell')[data.lastSell].removeAttribute('id', data.color);
                 
                 // console.log(data);
+            }
+
+            if (data.answerID == 4){
+                document.getElementsByClassName('sell')[data.sell].removeAttribute('id', data.color);
+                
+                if (data.color == 'blue') {
+                    document.getElementById('blueScore').innerHTML = 'user 1: <span id="blueScoreValue">0</span>';
+                } else if (data.color == 'red') {
+                    document.getElementById('redScore').innerHTML = 'user 2: <span id="blueScoreValue">0</span>';
+                } else if (data.color == 'green') {
+                    document.getElementById('greenScore').innerHTML = 'user 3: <span id="blueScoreValue">0</span>';
+                }
             }
         });
     });
