@@ -24,9 +24,9 @@ window.onload = function() {
                 if (data.color == 'blue') {
                     document.getElementById('blueScore').innerHTML = data.userName+': <span id="blueScoreValue">0</span>';
                 } else if (data.color == 'red') {
-                    document.getElementById('redScore').innerHTML = data.userName+': <span id="blueScoreValue">0</span>';
+                    document.getElementById('redScore').innerHTML = data.userName+': <span id="redScoreValue">0</span>';
                 } else if (data.color == 'green') {
-                    document.getElementById('greenScore').innerHTML = data.userName+': <span id="blueScoreValue">0</span>';
+                    document.getElementById('greenScore').innerHTML = data.userName+': <span id="greenScoreValue">0</span>';
                 }
             }
             // console.log(user);
@@ -36,23 +36,23 @@ window.onload = function() {
                 if (data.color == 'blue') {
                     document.getElementById('blueScore').innerHTML = data.userName+': <span id="blueScoreValue">0</span>';
                 } else if (data.color == 'red') {
-                    document.getElementById('redScore').innerHTML = data.userName+': <span id="blueScoreValue">0</span>';
+                    document.getElementById('redScore').innerHTML = data.userName+': <span id="redScoreValue">0</span>';
                 } else if (data.color == 'green') {
-                    document.getElementById('greenScore').innerHTML = data.userName+': <span id="blueScoreValue">0</span>';
+                    document.getElementById('greenScore').innerHTML = data.userName+': <span id="greenScoreValue">0</span>';
                 }
             }
 
             if (data.answerID == 2){
-                console.log(data);
-                console.log(data.sellID);
-                console.log(data.color);
+                // console.log(data);
+                // console.log(data.sellID);
+                // console.log(data.color);
                 document.getElementsByClassName('sell')[data.sell].setAttribute('id', data.color);
                 if (data.color == 'blue') {
-                    document.getElementById('blueScore').innerHTML = data.userName+': <span id="blueScoreValue">0</span>';
+                    document.getElementById('blueScore').innerHTML = data.userName+': <span id="blueScoreValue">'+data.score+'</span>';
                 } else if (data.color == 'red') {
-                    document.getElementById('redScore').innerHTML = data.userName+': <span id="blueScoreValue">0</span>';
+                    document.getElementById('redScore').innerHTML = data.userName+': <span id="redScoreValue">'+data.score+'</span>';
                 } else if (data.color == 'green') {
-                    document.getElementById('greenScore').innerHTML = data.userName+': <span id="blueScoreValue">0</span>';
+                    document.getElementById('greenScore').innerHTML = data.userName+': <span id="greenScoreValue">'+data.score+'</span>';
                 }
             }
 
@@ -74,10 +74,32 @@ window.onload = function() {
                 if (data.color == 'blue') {
                     document.getElementById('blueScore').innerHTML = 'user 1: <span id="blueScoreValue">0</span>';
                 } else if (data.color == 'red') {
-                    document.getElementById('redScore').innerHTML = 'user 2: <span id="blueScoreValue">0</span>';
+                    document.getElementById('redScore').innerHTML = 'user 2: <span id="redScoreValue">0</span>';
                 } else if (data.color == 'green') {
-                    document.getElementById('greenScore').innerHTML = 'user 3: <span id="blueScoreValue">0</span>';
+                    document.getElementById('greenScore').innerHTML = 'user 3: <span id="greenScoreValue">0</span>';
                 }
+            }
+
+
+            if (data.answerID == 5){
+                console.log(data);
+                document.getElementsByClassName('sell')[data.newSell].setAttribute('id', data.loseColor);
+
+                if (data.winColor == 'blue') {
+                    document.getElementById('blueScoreValue').innerHTML = data.score;
+                }
+                if (data.winColor == 'red') {
+                    document.getElementById('redScoreValue').innerHTML = data.score;
+                }
+                if (data.winColor == 'green') {
+                    document.getElementById('greenScoreValue').innerHTML = data.score;
+                }
+                console.log(user);
+                console.log(user.color == data.loseColor);
+                if (user.color == data.loseColor) {
+                    user.sell = data.newSell;
+                }
+                console.log(user);
             }
         });
     });

@@ -41,6 +41,7 @@ var positions = {};
 
 sio.sockets.on('connection', (socket) => {
   var sellID = Math.floor(Math.random() * 169);
+
   // console.log(sellID);
   if (users == 0) {
     color = 'blue';
@@ -137,28 +138,88 @@ sio.sockets.on('connection', (socket) => {
       socket.json.send({'answerID': 3, 'sell': data.sell, 'lastSell': sell, 'color': data.color});
       socket.broadcast.json.send({'answerID': 3, 'sell': data.sell, 'lastSell': sell, 'color': data.color});
       positions[socket.id] = data.sell;
+
+
+      for (var key in positions) {
+        if (key == socket.id) continue;
+        if (data.sell == positions[key]) {
+          var newSell = Math.floor(Math.random() * 169);
+          clients[socket.id].score += 1;
+          clients[key].sell = newSell;
+          positions[key] = newSell;
+          socket.json.send({'answerID': 5, 'lastSell': data.sell, 'newSell': newSell, 'loseColor': clients[key].color, 'winColor': data.color, 'score': clients[socket.id].score});
+          socket.broadcast.json.send({'answerID': 5, 'lastSell': data.sell, 'newSell': newSell, 'loseColor': clients[key].color, 'winColor': data.color, 'score': clients[socket.id].score});
+        }
+      }
+
+
     } else if (data.answerID == 2) {
       var sell = data.sell;
       data.sell -= 13;
       socket.json.send({'answerID': 3, 'sell': data.sell, 'lastSell': sell, 'color': data.color});
       socket.broadcast.json.send({'answerID': 3, 'sell': data.sell, 'lastSell': sell, 'color': data.color});
       positions[socket.id] = data.sell;
+
+      for (var key in positions) {
+        if (key == socket.id) continue;
+        if (data.sell == positions[key]) {
+          var newSell = Math.floor(Math.random() * 169);
+          clients[socket.id].score += 1;
+          clients[key].sell = newSell;
+          positions[key] = newSell;
+          socket.json.send({'answerID': 5, 'lastSell': data.sell, 'newSell': newSell, 'loseColor': clients[key].color, 'winColor': data.color, 'score': clients[socket.id].score});
+          socket.broadcast.json.send({'answerID': 5, 'lastSell': data.sell, 'newSell': newSell, 'loseColor': clients[key].color, 'winColor': data.color, 'score': clients[socket.id].score});
+        }
+      }
+
+
     } else if (data.answerID == 3) {
       var sell = data.sell;
       data.sell -= 1;
       socket.json.send({'answerID': 3, 'sell': data.sell, 'lastSell': sell, 'color': data.color});
       socket.broadcast.json.send({'answerID': 3, 'sell': data.sell, 'lastSell': sell, 'color': data.color});
       positions[socket.id] = data.sell;
+
+
+      for (var key in positions) {
+        if (key == socket.id) continue;
+        if (data.sell == positions[key]) {
+          var newSell = Math.floor(Math.random() * 169);
+          clients[socket.id].score += 1;
+          clients[key].sell = newSell;
+          positions[key] = newSell;
+          socket.json.send({'answerID': 5, 'lastSell': data.sell, 'newSell': newSell, 'loseColor': clients[key].color, 'winColor': data.color, 'score': clients[socket.id].score});
+          socket.broadcast.json.send({'answerID': 5, 'lastSell': data.sell, 'newSell': newSell, 'loseColor': clients[key].color, 'winColor': data.color, 'score': clients[socket.id].score});
+        }
+      }
+
+
     } else if (data.answerID == 4) {
       var sell = data.sell;
       data.sell += 1;
       socket.json.send({'answerID': 3, 'sell': data.sell, 'lastSell': sell, 'color': data.color});
       socket.broadcast.json.send({'answerID': 3, 'sell': data.sell, 'lastSell': sell, 'color': data.color});
       positions[socket.id] = data.sell;
+
+
+      for (var key in positions) {
+        if (key == socket.id) continue;
+        if (data.sell == positions[key]) {
+          var newSell = Math.floor(Math.random() * 169);
+          clients[socket.id].score += 1;
+          clients[key].sell = newSell;
+          positions[key] = newSell;
+          socket.json.send({'answerID': 5, 'lastSell': data.sell, 'newSell': newSell, 'loseColor': clients[key].color, 'winColor': data.color, 'score': clients[socket.id].score});
+          socket.broadcast.json.send({'answerID': 5, 'lastSell': data.sell, 'newSell': newSell, 'loseColor': clients[key].color, 'winColor': data.color, 'score': clients[socket.id].score});
+        }
+      }
+
+
+
     }
     clients[socket.id].sell = data.sell;
     positions[socket.id] = data.sell;
-    console.log(positions);
+    // console.log(positions);
   });
   // console.log(clients);
 

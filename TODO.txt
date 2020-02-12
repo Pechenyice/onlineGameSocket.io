@@ -1,7 +1,4 @@
 TODO: 
-game logic 
-game score 
-change position on sell click 
-clear IDS
-splice positions on disconnect
-get parametrs at server
+protect nickname and Random
+do max count - 3 players
+check unique nickname
