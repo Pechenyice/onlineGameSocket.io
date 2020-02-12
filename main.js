@@ -1,8 +1,69 @@
 const express = require('express');
 const bodyParser = require("body-parser");
-
 const app = express();
+const mysql = require("mysql2");
+
+
 app.use(express.static(__dirname + '/'));
+
+var jsonParser = bodyParser.json();
+  
+var connection = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  database: "users",
+  password: "root"
+});
+
+var users = [];
+var needToCreate = 1;
+
+app.post('/newPlayer',jsonParser, function(req, res) {
+
+  connection = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    database: "users",
+    password: "root"
+  });
+
+  connection.connect(function(err){
+    if (err) {
+      return console.error("Ошибка: " + err.message);
+    }
+    else{
+      console.log("Подключение к серверу MySQL успешно установлено");
+    }
+  });
+
+  connection.query("SELECT * FROM players", function(err, results) {
+    users = results;
+    console.log(results.length);
+    for (var i = 0; i < results.length; i++) {
+      console.log(results[i].nickname +' --- '+ req.body.name + '\n')
+      if (results[i].nickname == req.body.name) {
+        needToCreate = 0;
+        break;
+      } else needToCreate = 1;
+    }
+
+    if (needToCreate) {
+      var iter = 0;
+      var newUser = [req.body.name, req.body.password];
+      const sql = "INSERT INTO players(nickname, password) VALUES(?, ?)";
+      connection.query(sql, newUser, function(err, results) {
+        if(err) console.log(err);
+        else console.log("Данные добавлены");
+        connection.destroy();
+      });
+      res.send(JSON.stringify({connection: 1}));
+    } else {
+      console.log("nickname is in use!");
+      res.send(JSON.stringify({connection: 0}));
+    }
+  });
+
+});
 
 app.get('/game', function(req, res) {
   // console.log('try');
@@ -15,8 +76,6 @@ app.get('/', function(req, res) {
   res.write();
   res.sendFile(__dirname + "/index.html");
 });
-
-var jsonParser = bodyParser.json();
 
 var username;
 

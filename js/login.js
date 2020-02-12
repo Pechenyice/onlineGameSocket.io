@@ -1,5 +1,6 @@
 
 
+
 window.onload = () => {
     var canBeConnected = 0;
 
@@ -139,6 +140,26 @@ window.onload = () => {
             registerButton.innerHTML = "<p>Join community</p>";
         }, 500);
         active = 2;
+        registerButton.addEventListener('click', () => {
+
+            if (registerName.value != "Введите имя" && registerName.value != "" && registerName.value != " " && registerPassword.value != "Введите пароль" && registerPassword.value != "" && registerPassword.value != " ") {
+                var xhr = new XMLHttpRequest();
+                xhr.open('post', '/newPlayer');
+                xhr.setRequestHeader("Content-type", "application/json");
+                // alert(JSON.stringify({username: guestName.value}));
+                xhr.send(JSON.stringify({name: registerName.value, password: registerPassword.value}));
+                xhr.onload = () => {
+                    console.log(xhr.response);
+                }
+            } else {
+                if (registerName.value == "" || registerName.value == " ") {
+                    guestName.value = "Введите имя";
+                }
+                if (registerPassword.value == "" || registerPassword.value == " ") {
+                    guestName.value = "Введите пароль";
+                }
+            }
+        });
     });
 
     var guestName = document.getElementById('guestName');
