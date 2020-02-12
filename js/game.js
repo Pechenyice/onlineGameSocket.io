@@ -1,61 +1,72 @@
 
 window.onload = function() {
     var user = {
-        currentID: -1,
         color: 'none',
-        sellID: -1,
-        myGameId: -1,
-        myUserName: 'user'
+        sell: -1,
+        score: -1,
+        userName: 'user',
+        gameID: -1
     };
-    var users = [];
+    // var users = [];
 
     socket = io.connect('localhost:8081');
     socket.on('connect', () => {
         socket.on('message', (data) => {
+            // console.log(data);
             // data = JSON.parse(data);
             if (data.answerID == 0){
-                user.currentID = data.currentID;
                 user.color = data.color;
-                user.sellID = data.sellID;
-                user.myGameId = data.socketID;
-                user.myUserName = data.myUserName;
-                if (data.color = 'blue') {
-                    document.getElementsByClassName('userScores')[0].innerHTML = data.myUserName + ": <p id='blueScore'>0</p>";
-                } else if (data.color = 'red') {
-                    document.getElementsByClassName('userScores')[1].innerHTML = data.myUserName + ": <p id='redScore'>0</p>";
-                } else if (data.color = 'green') {
-                    document.getElementsByClassName('userScores')[2].innerHTML = data.myUserName + ": <p id='greenScore'>0</p>";
+                user.sell = data.sell;
+                user.score = data.score;
+                user.userName = data.userName;
+                user.gameID = data.gameID;
+                document.getElementsByClassName('sell')[user.sell].setAttribute('id', user.color);
+                if (data.color == 'blue') {
+                    document.getElementById('blueScore').innerHTML = data.userName+': <span id="blueScoreValue">0</span>';
+                } else if (data.color == 'red') {
+                    document.getElementById('redScore').innerHTML = data.userName+': <span id="blueScoreValue">0</span>';
+                } else if (data.color == 'green') {
+                    document.getElementById('greenScore').innerHTML = data.userName+': <span id="blueScoreValue">0</span>';
                 }
-                // users.push(user);
-                users[socket.id] = user;
-                console.log(users);
-                document.getElementsByClassName('sell')[user.sellID].setAttribute('id', user.color);
-                console.log(data);
             }
+            // console.log(user);
 
             if (data.answerID == 1){
-                document.getElementsByClassName('sell')[data.sellID].setAttribute('id', data.color);
-                if (data.color = 'blue') {
-                    document.getElementById('blueScore').innerHTML = data.newUserName;
-                } else if (data.color = 'red') {
-                    document.getElementById('redScore').innerHTML = data.newUserName;
-                } else if (data.color = 'green') {
-                    document.getElementById('greenScore').innerHTML = data.newUserName;
+                document.getElementsByClassName('sell')[data.sell].setAttribute('id', data.color);
+                if (data.color == 'blue') {
+                    document.getElementById('blueScore').innerHTML = data.userName+': <span id="blueScoreValue">0</span>';
+                } else if (data.color == 'red') {
+                    document.getElementById('redScore').innerHTML = data.userName+': <span id="blueScoreValue">0</span>';
+                } else if (data.color == 'green') {
+                    document.getElementById('greenScore').innerHTML = data.userName+': <span id="blueScoreValue">0</span>';
                 }
-                console.log(data);
             }
 
             if (data.answerID == 2){
-                document.getElementsByClassName('sell')[data.sellID].removeAttribute('id', data.color);
                 console.log(data);
+                console.log(data.sellID);
+                console.log(data.color);
+                document.getElementsByClassName('sell')[data.sell].setAttribute('id', data.color);
+                if (data.color == 'blue') {
+                    document.getElementById('blueScore').innerHTML = data.userName+': <span id="blueScoreValue">0</span>';
+                } else if (data.color == 'red') {
+                    document.getElementById('redScore').innerHTML = data.userName+': <span id="blueScoreValue">0</span>';
+                } else if (data.color == 'green') {
+                    document.getElementById('greenScore').innerHTML = data.userName+': <span id="blueScoreValue">0</span>';
+                }
             }
             //////////////////////
+            // console.log(data.answerID);
+            // alert('sent');
             if (data.answerID == 3){
+                // alert("dsf")
                 // user.color = data.color;
                 // user.sellID = data.sellID;
-                document.getElementsByClassName('sell')[data.sellID].setAttribute('id', data.color);
-                document.getElementsByClassName('sell')[data.lastID].removeAttribute('id', data.color);
-                if (data.myID == users[socket.id].currentID) users[socket.id].sellID = data.sellID;
+                for (var i = 0; i < 169; i++) {
+                   if (document.getElementsByClassName('sell')[i].getAttribute('id') == data.color) document.getElementsByClassName('sell')[i].removeAttribute('id', data.color);
+                }
+                document.getElementsByClassName('sell')[data.sell].setAttribute('id', data.color);
+                document.getElementsByClassName('sell')[data.lastSell].removeAttribute('id', data.color);
                 
                 // console.log(data);
             }
@@ -63,40 +74,44 @@ window.onload = function() {
     });
 
     document.addEventListener('keydown', (event) => {
-        console.log(event.code);
+        // console.log(event.code);
         if (event.code == 'ArrowDown') {
-            if (users[socket.id].sellID < 156) {
+            if (user.sell < 156) {
                 ///////////////////////////
                 // alert(socket.id);
                 // console.log(user);
-                socket.send(JSON.stringify({'answerID': 3,'lastID': users[socket.id].sellID, 'sellID': users[socket.id].sellID, 'color': users[socket.id].color, 'myID': users[socket.id].currentID}));
+                socket.send(JSON.stringify({'answerID': 1, 'sell': user.sell, 'color': user.color}));
+                user.sell += 13;
             }
         }
     
         if (event.code == 'ArrowUp') {
-            if (users[socket.id].sellID > 12) {
+            if (user.sell > 12) {
                 ///////////////////////////
                 // alert(socket.id);
                 // console.log(user);
-                socket.send(JSON.stringify({'answerID': 4,'lastID': users[socket.id].sellID, 'sellID': users[socket.id].sellID, 'color': users[socket.id].color, 'myID': users[socket.id].currentID}));
+                socket.send(JSON.stringify({'answerID': 2, 'sell': user.sell, 'color': user.color}));
+                user.sell -= 13;
             }
         }
     
         if (event.code == 'ArrowLeft') {
-            if (users[socket.id].sellID % 13 != 0) {
+            if (user.sell % 13 != 0) {
                 ///////////////////////////
                 // alert(socket.id);
                 // console.log(user);
-                socket.send(JSON.stringify({'answerID': 5,'lastID': users[socket.id].sellID, 'sellID': users[socket.id].sellID, 'color': users[socket.id].color, 'myID': users[socket.id].currentID}));
+                socket.send(JSON.stringify({'answerID': 3, 'sell': user.sell, 'color': user.color}));
+                user.sell -= 1;
             }
         }
     
         if (event.code == 'ArrowRight') {
-            if (users[socket.id].sellID % 13 != 12) {
+            if (user.sell % 13 != 12) {
                 ///////////////////////////
                 // alert(socket.id);
                 // console.log(user);
-                socket.send(JSON.stringify({'answerID': 6,'lastID': users[socket.id].sellID, 'sellID': users[socket.id].sellID, 'color': users[socket.id].color, 'myID': users[socket.id].currentID}));
+                socket.send(JSON.stringify({'answerID': 4, 'sell': user.sell, 'color': user.color}));
+                user.sell += 1;
             }
         }
     });

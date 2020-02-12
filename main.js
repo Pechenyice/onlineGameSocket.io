@@ -36,151 +36,72 @@ app.use(express.urlencoded());
 const sio = require('socket.io').listen(8081);
 var users = 0;
 var color = 'blue';
-var sellID = 84;
 var clients = [];
 var positions = [];
 
 sio.sockets.on('connection', (socket) => {
-  var userObject = {
-    myID: -1,
-    myColor: '404',
-    mySell: -1,
-    socketID: socket.id,
-    myUserName: username
-  }
-  // console.log(username);
-  // console.log(userObject.myUserName);
-  users++;
+  var sellID = Math.floor(Math.random() * 169);
+  // console.log(sellID);
   if (users == 1) {
-    color = 'blue';
-    sellID = 84;
-  }
-  if (users == 2) {
     color = 'red';
-    sellID = 85;
-  } else if (users == 3) {
+  } else if (users == 2) {
     color = 'green';
-    sellID = 86;
   }
-  positions[socket.id] = sellID;
-  // console.log("i am alive");
-  var needToUnshiftFirst = 0;
-  var needToUnshiftSecond = 0;
-
-  if (users > 2) {
-    for (var i = 0; i < clients.length; i++) {
-      // console.log(clients[i].myID + '\n');
-      if (clients[i].myID == 2) {
-        needToUnshiftSecond = 0;
-        break;
-      } else needToUnshiftSecond = 1;
-    }
-    if (needToUnshiftSecond) {
-      userObject.myID = 2;
-      userObject.myColor = 'red';
-      userObject.mySell = 85;
-      clients.splice(1, 0, userObject);
-      // console.log(userObject.myUserName);
-      socket.json.send({'socketID': userObject.socketID, 'myUserName':userObject.myUserName, 'answerID': 0, 'currentID': 2, 'color': 'red', 'sellID': 85});
-      socket.broadcast.json.send({'answerID': 1,'newUserName':userObject.myUserName, 'currentID': 2, 'color': 'red', 'sellID': 85});
-    }
+  users++;
+  clients[socket.id] = {
+    'sell': sellID,
+    'color': color,
+    'score': 0,
+    'userName': username,
+    'gameID': users - 1
   }
 
-  if (users > 1) {
-    for (var i = 0; i < clients.length; i++) {
-      if (clients[i].myID == 1) {
-        needToUnshiftFirst = 0;
-        break;
-      } else needToUnshiftFirst = 1;
-    }
-    if (needToUnshiftFirst) {
-      userObject.myID = 1;
-      userObject.myColor = 'blue';
-      userObject.mySell = 84;
-      clients.unshift(userObject);
-      socket.json.send({'socketID': userObject.socketID,'myUserName':userObject.myUserName, 'answerID': 0, 'currentID': 1, 'color': 'blue', 'sellID': 84});
-      socket.broadcast.json.send({'answerID': 1,'newUserName':userObject.myUserName, 'currentID': 1, 'color': 'blue', 'sellID': 84});
-    }
-  }
-  if (!needToUnshiftFirst && !needToUnshiftSecond) {
-    userObject.myID = users;
-    userObject.myColor = color;
-    userObject.mySell = sellID;
-    clients.push(userObject);
-    socket.json.send({'socketID': userObject.socketID,'myUserName':userObject.myUserName, 'answerID': 0, 'currentID': users, 'color': color, 'sellID': sellID});
-    socket.broadcast.json.send({'answerID': 1, 'newUserName':userObject.myUserName, 'currentID': users, 'color': color, 'sellID': sellID});
-  }
+  socket.json.send({'answerID': 0,'gameID': clients[socket.id].gameID, 'userName': clients[socket.id].userName, 'sell': clients[socket.id].sell, 'color': clients[socket.id].color, 'score': clients[socket.id].score});
+  socket.broadcast.json.send({'answerID': 1,'gameID': clients[socket.id].gameID, 'userName': clients[socket.id].userName, 'sell': clients[socket.id].sell, 'color': clients[socket.id].color, 'score': clients[socket.id].score});
   // console.log(clients);
-  if (users > 1) {
-    for (var i = 0; i < users; i++) {
-      socket.json.send({'answerID': 1,'newUserName': userObject.myUserName , 'currentID': clients[i].myID, 'color': clients[i].myColor, 'sellID': clients[i].mySell});
-    }
+  for (var key in clients) {
+    if (key == socket.id) continue;
+    socket.json.send({'answerID': 2,'gameID': clients[key].gameID, 'userName': clients[key].userName, 'sell': clients[key].sell, 'color': clients[key].color, 'score': clients[key].score});
+
   }
+
   socket.on('message', function(data) {
-    // console.log(socket.id);
-    /////////////////////
     data = JSON.parse(data);
-
-
-
-
-    if (data.answerID == 3) {
-      data.sellID += 13;
-      for (var i = 0; i < clients.length; i++) {
-        if (data.myID == clients[i].myID) {
-          clients[i].mySell = data.sellID;
-        }
-      }
+    if (data.answerID == 1) {
+      var sell = data.sell;
+      data.sell += 13;
+      socket.json.send({'answerID': 3, 'sell': data.sell, 'lastSell': sell, 'color': data.color});
+      socket.broadcast.json.send({'answerID': 3, 'sell': data.sell, 'lastSell': sell, 'color': data.color});
+    } else if (data.answerID == 2) {
+      var sell = data.sell;
+      data.sell -= 13;
+      socket.json.send({'answerID': 3, 'sell': data.sell, 'lastSell': sell, 'color': data.color});
+      socket.broadcast.json.send({'answerID': 3, 'sell': data.sell, 'lastSell': sell, 'color': data.color});
+    } else if (data.answerID == 3) {
+      var sell = data.sell;
+      data.sell -= 1;
+      socket.json.send({'answerID': 3, 'sell': data.sell, 'lastSell': sell, 'color': data.color});
+      socket.broadcast.json.send({'answerID': 3, 'sell': data.sell, 'lastSell': sell, 'color': data.color});
+    } else if (data.answerID == 4) {
+      var sell = data.sell;
+      data.sell += 1;
+      socket.json.send({'answerID': 3, 'sell': data.sell, 'lastSell': sell, 'color': data.color});
+      socket.broadcast.json.send({'answerID': 3, 'sell': data.sell, 'lastSell': sell, 'color': data.color});
     }
-
-    if (data.answerID == 4) {
-      data.sellID -= 13;
-      for (var i = 0; i < clients.length; i++) {
-        if (data.myID == clients[i].myID) {
-          clients[i].mySell = data.sellID;
-        }
-      }
-    }
-
-    if (data.answerID == 5) {
-      data.sellID -= 1;
-      for (var i = 0; i < clients.length; i++) {
-        if (data.myID == clients[i].myID) {
-          clients[i].mySell = data.sellID;
-        }
-      }
-    }
-
-    if (data.answerID == 6) {
-      data.sellID += 1;
-      for (var i = 0; i < clients.length; i++) {
-        if (data.myID == clients[i].myID) {
-          clients[i].mySell = data.sellID;
-        }
-      }
-    }
-    positions[socket.id] = data.sellID;
-    // console.log(data);
-    // console.log(clients);
-    console.log(positions);
-    data.answerID = 3;
-    socket.json.send(data);
-    socket.broadcast.json.send(data);
+    clients[socket.id].sell = data.sell;
   });
-
+  console.log(clients);
 
 
   socket.on('disconnect', function() {
-    for (var i = 0; i < clients.length; i++) {
-      if (userObject.myID == clients[i].myID) {
-        socket.broadcast.json.send({'answerID': 2, 'currentID': clients[i].myID, 'color': clients[i].myColor, 'sellID': clients[i].mySell});
-        clients.splice(i, 1);
-        var positionsMap = positions.reduce(function(map,id){map[id]=true; return map;},{});
-        console.log(positionsMap);
+    console.log(clients);
+    for (var key in clients) {
+      if (socket.id == key) {
+        clients.splice(key, 1);
       }
     }
-    // console.log(clients);
-		users--;
+    console.log(clients);
+    users--;
 	});
 });
 
