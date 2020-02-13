@@ -116,6 +116,42 @@ window.onload = () => {
             loginButton.innerHTML = "<p>Start game</p>";
         }, 500);
         active = 1;
+
+        loginButton.addEventListener('click', () => {
+
+            if (loginName.value != "Введите имя" && loginName.value != "" && loginName.value != " " && loginPassword.value != "Введите пароль" && loginPassword.value != "" && loginPassword.value != " ") {
+                var xhr = new XMLHttpRequest();
+                xhr.open('post', '/connectPlayer');
+                xhr.setRequestHeader("Content-type", "application/json");
+                // alert(JSON.stringify({username: guestName.value}));
+                xhr.send(JSON.stringify({name: loginName.value, password: loginPassword.value}));
+                xhr.onload = () => {
+                    var canBeConnected = JSON.parse(xhr.response).value;
+                    if (canBeConnected) {
+                        var xml = new XMLHttpRequest();
+                        xml.open('get', '/game');
+                        xml.send();
+                        xml.onload = () => {
+                            document.write(xml.response);
+                        }
+                    } else {
+                        var xml = new XMLHttpRequest();
+                        xml.open('get', '/notFound');
+                        xml.send();
+                        xml.onload = () => {
+                            document.write(xml.response);
+                        }
+                    }
+                }
+            } else {
+                if (loginName.value == "" || loginName.value == " ") {
+                    guestName.value = "Введите имя";
+                }
+                if (loginPassword.value == "" || loginPassword.value == " ") {
+                    guestName.value = "Введите пароль";
+                }
+            }
+        });
     });
 
     var registerButton = document.getElementById("registerButton");
@@ -149,7 +185,22 @@ window.onload = () => {
                 // alert(JSON.stringify({username: guestName.value}));
                 xhr.send(JSON.stringify({name: registerName.value, password: registerPassword.value}));
                 xhr.onload = () => {
-                    console.log(xhr.response);
+                    var canBeConnected = JSON.parse(xhr.response).connection;
+                    if (canBeConnected) {
+                        var xml = new XMLHttpRequest();
+                        xml.open('get', '/game');
+                        xml.send();
+                        xml.onload = () => {
+                            document.write(xml.response);
+                        }
+                    } else {
+                        var xml = new XMLHttpRequest();
+                        xml.open('get', '/notFound');
+                        xml.send();
+                        xml.onload = () => {
+                            document.write(xml.response);
+                        }
+                    }
                 }
             } else {
                 if (registerName.value == "" || registerName.value == " ") {
