@@ -12,7 +12,7 @@ var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   database: "users",
-  password: "root"
+  password: YOUR_PASSWORD
 });
 
 var users = [];
