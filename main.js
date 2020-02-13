@@ -18,8 +18,6 @@ var connection = mysql.createConnection({
 var usersDB = [];
 var needToCreate = 1;
 
-<<<<<<< HEAD
-=======
 
 var username;
 
@@ -69,7 +67,6 @@ app.post('/newUserName',jsonParser, function(req, res) {
 });
 
 
->>>>>>> rework
 app.post('/newPlayer',jsonParser, function(req, res) {
 
   connection = mysql.createConnection({
