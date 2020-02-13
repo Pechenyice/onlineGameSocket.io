@@ -12,7 +12,7 @@ var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   database: "users",
-  password: "root"
+  password: 'root'
 });
 
 var usersDB = [];
@@ -394,4 +394,3 @@ sio.sockets.on('connection', (socket) => {
 
 
 app.listen(3000, '127.0.0.1');
-// console.log("Server has started.");
