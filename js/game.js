@@ -1,5 +1,5 @@
 
-window.onload = function() {
+// window.onload = function() {
     var user = {
         color: 'none',
         sell: -1,
@@ -147,4 +147,4 @@ window.onload = function() {
         }
     });
 
-}
+// }

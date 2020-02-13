@@ -12,7 +12,7 @@ var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   database: "users",
-  password: 'root'
+  password: "root"
 });
 
 var usersDB = [];
@@ -158,6 +158,18 @@ app.post('/newPlayer',jsonParser, function(req, res) {
 
 });
 
+// app.post('/test', (req, res) => {
+//   console.log('and here');
+//   res.redirect('/game');
+// });
+
+app.get('/notFound', function(req, res) {
+  // console.log('try');
+  // console.log(req.body);
+  res.sendFile(__dirname + "/html/notFound.html");
+});
+
+
 app.get('/game', function(req, res) {
   // console.log('try');
   // console.log(req.body);
@@ -170,16 +182,6 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 
-var username;
-
-app.post('/newUserName',jsonParser, function(req, res) {
-  // console.log(req);
-  // console.log(req.body);
-  username = req.body.username;
-  // console.log(JSON.parse(req.body).username);
-  console.log(username);
-  res.send(JSON.stringify({'value': 1}));
-});
 
 app.use(express.urlencoded());
 
@@ -392,3 +394,4 @@ sio.sockets.on('connection', (socket) => {
 
 
 app.listen(3000, '127.0.0.1');
+// console.log("Server has started.");

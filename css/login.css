@@ -1,3 +1,7 @@
+* {
+    outline: none;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -137,6 +141,7 @@ body {
     width: 80%;
     margin: 0 auto;
     margin-top: 25%;
+    /* margin-top: 25%; */
     height: 50%;
     transition: .5s;
     /* background-color: black; */
