@@ -15,7 +15,7 @@ var connection = mysql.createConnection({
   password: "root"
 });
 
-var users = [];
+var usersDB = [];
 var needToCreate = 1;
 
 
@@ -38,16 +38,16 @@ app.post('/newGuestName',jsonParser, function(req, res) {
       return console.error("Ошибка: " + err.message);
     }
     else{
-      console.log("Подключение к серверу MySQL успешно установлено");
+      
     }
   });
   var check = 0;
   connection.query("SELECT * FROM players", function(err, results) {
-    users = results;
+    usersDB = results;
     for (var i = 0; i < results.length; i++) {
       
       if (results[i].nickname == req.body.username) {
-        console.log('willBE 0');
+        
         res.send(JSON.stringify({'value': 0}));
         check = 1;
         break;
@@ -62,7 +62,7 @@ app.post('/newUserName',jsonParser, function(req, res) {
   // console.log(req.body);
   username = req.body.username;
   // console.log(JSON.parse(req.body).username);
-  console.log(username);
+ 
   res.send(JSON.stringify({'value': 1}));
 });
 
@@ -81,15 +81,14 @@ app.post('/newPlayer',jsonParser, function(req, res) {
       return console.error("Ошибка: " + err.message);
     }
     else{
-      console.log("Подключение к серверу MySQL успешно установлено");
+      
     }
   });
 
   connection.query("SELECT * FROM players", function(err, results) {
-    users = results;
-    console.log(results.length);
+    usersDB = results;
     for (var i = 0; i < results.length; i++) {
-      console.log(results[i].nickname +' --- '+ req.body.name + '\n')
+      
       if (results[i].nickname == req.body.name) {
         needToCreate = 0;
         break;
@@ -101,13 +100,11 @@ app.post('/newPlayer',jsonParser, function(req, res) {
       var newUser = [req.body.name, req.body.password];
       const sql = "INSERT INTO players(nickname, password) VALUES(?, ?)";
       connection.query(sql, newUser, function(err, results) {
-        if(err) console.log(err);
-        else console.log("Данные добавлены");
+
         connection.destroy();
       });
       res.send(JSON.stringify({connection: 1}));
     } else {
-      console.log("nickname is in use!");
       res.send(JSON.stringify({connection: 0}));
     }
   });
@@ -133,8 +130,8 @@ app.get('/game', function(req, res) {
 });
 
 app.get('/', function(req, res) {
-  console.log(req.body);
-  res.write();
+  
+  // res.write();
   res.sendFile(__dirname + "/index.html");
 });
 
@@ -145,11 +142,14 @@ app.use(express.urlencoded());
 //WEBSOCKET GAME
 const sio = require('socket.io').listen(8081);
 var users = 0;
+// console.log(users);
 var color = 'blue';
 var clients = {};
 var positions = {};
 
 sio.sockets.on('connection', (socket) => {
+  // console.log(users);
+  // console.log(socket.id);
   var sellID = Math.floor(Math.random() * 169);
 
   // console.log(sellID);
@@ -161,7 +161,8 @@ sio.sockets.on('connection', (socket) => {
     color = 'green';
   }
   users++;
-
+  // console.log(users);
+  // console.log(socket.id);
 
   var needToUnshiftFirst = 0;
   var needToUnshiftSecond = 0;
@@ -237,7 +238,7 @@ sio.sockets.on('connection', (socket) => {
   
     }
   }
-  console.log(positions);
+  // console.log(positions);
 
 
   socket.on('message', function(data) {
@@ -346,4 +347,4 @@ sio.sockets.on('connection', (socket) => {
 
 
 app.listen(3000, '127.0.0.1');
-console.log("Server has started.");
+// console.log("Server has started.");
