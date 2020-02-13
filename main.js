@@ -48,26 +48,64 @@ app.post('/newGuestName',jsonParser, function(req, res) {
       
       if (results[i].nickname == req.body.username) {
         
-        res.send(JSON.stringify({'value': 0}));
+        // res.send(JSON.stringify({'value': 0}));
         check = 1;
         break;
       }
     }
-    if (!check) res.send(JSON.stringify({'value': 1}));
+    if (!check && req.body.username != '' && req.body.username != ' ' && req.body.username != 'Введите имя') res.send(JSON.stringify({'value': 1})); else res.send(JSON.stringify({'value': 0}));
   });
 });
 
-app.post('/newUserName',jsonParser, function(req, res) {
+
+app.post('/connectPlayer',jsonParser, function(req, res) {
   // console.log(req);
   // console.log(req.body);
-  username = req.body.username;
-  // console.log(JSON.parse(req.body).username);
- 
-  res.send(JSON.stringify({'value': 1}));
+  username = req.body.name;
+  
+  connection = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    database: "users",
+    password: "root"
+  });
+
+  connection.connect(function(err){
+    if (err) {
+      return console.error("Ошибка: " + err.message);
+    }
+    else{
+      
+    }
+  });
+  var check = 0;
+  connection.query("SELECT * FROM players", function(err, results) {
+    usersDB = results;
+    for (var i = 0; i < results.length; i++) {
+      
+      if (results[i].nickname == req.body.name && results[i].password == req.body.password) {
+        check = 1;
+        break;
+      }
+
+    }
+    // console.log(clients);
+    if (check) {
+      for (var key in clients) {
+        // console.log(clients[key].userName);
+        if (req.body.name == clients[key].userName) {
+          check = 0;
+          break;
+        } 
+      }
+    }
+    if (!check) res.send(JSON.stringify({'value': 0})); else res.send(JSON.stringify({'value': 1}));
+  });
 });
 
 
 app.post('/newPlayer',jsonParser, function(req, res) {
+  username = req.body.name;
 
   connection = mysql.createConnection({
     host: "localhost",
@@ -94,8 +132,17 @@ app.post('/newPlayer',jsonParser, function(req, res) {
         break;
       } else needToCreate = 1;
     }
-
+    
     if (needToCreate) {
+      for (var key in clients) {
+        if (req.body.name == clients[key].userName) {
+          needToCreate = 0;
+          break;
+        }
+      }
+    }
+
+    if (needToCreate && req.body.name != '' && req.body.name != ' ' && req.body.name != 'Введите имя' && req.body.password != '' && req.body.password != ' ' && req.body.password != 'Введите пароль') {
       var iter = 0;
       var newUser = [req.body.name, req.body.password];
       const sql = "INSERT INTO players(nickname, password) VALUES(?, ?)";
