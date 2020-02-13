@@ -3,3 +3,4 @@ protect nickname and Random
 do max count - 3 players
 check unique nickname (database create and do db connect)
 fix design
+hide ***
