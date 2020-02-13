@@ -12,7 +12,7 @@ var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   database: "users",
-  password: 'root'
+  password: 'YOUR_PASSWORD'
 });
 
 var usersDB = [];
@@ -30,7 +30,7 @@ app.post('/newGuestName',jsonParser, function(req, res) {
     host: "localhost",
     user: "root",
     database: "users",
-    password: "root"
+    password: "YOUR_PASSWORD"
   });
 
   connection.connect(function(err){
@@ -66,7 +66,7 @@ app.post('/connectPlayer',jsonParser, function(req, res) {
     host: "localhost",
     user: "root",
     database: "users",
-    password: "root"
+    password: "YOUR_PASSWORD"
   });
 
   connection.connect(function(err){
@@ -110,7 +110,7 @@ app.post('/newPlayer',jsonParser, function(req, res) {
     host: "localhost",
     user: "root",
     database: "users",
-    password: "root"
+    password: "YOUR_PASSWORD"
   });
 
   connection.connect(function(err){

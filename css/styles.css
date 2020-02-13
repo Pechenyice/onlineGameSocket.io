@@ -35,7 +35,7 @@ body {
 }
 
 #score {
-    width: 650px;
+    width: 1000px;
     height: 80px;
     background-color: #fff;
     margin: 0 auto;
@@ -48,11 +48,12 @@ body {
     width: 30%;
     height: 80px;
     float: left;
+    text-align: center;
 }
 
 .userScores p {
     /* clear: right; */
-    margin: -40px 0px 0px 130px;
+    margin: 0px;
 }
 
 .userScores:nth-child(1) {
