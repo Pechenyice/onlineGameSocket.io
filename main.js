@@ -12,7 +12,11 @@ var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   database: "users",
+<<<<<<< HEAD
   password: "root"
+=======
+  password: 'YOUR_PASSWORD'
+>>>>>>> rework
 });
 
 var usersDB = [];
@@ -30,7 +34,7 @@ app.post('/newGuestName',jsonParser, function(req, res) {
     host: "localhost",
     user: "root",
     database: "users",
-    password: "root"
+    password: "YOUR_PASSWORD"
   });
 
   connection.connect(function(err){
@@ -53,10 +57,9 @@ app.post('/newGuestName',jsonParser, function(req, res) {
         break;
       }
     }
-    if (!check && req.body.username != '' && req.body.username != ' ' && req.body.username != 'Введите имя') res.send(JSON.stringify({'value': 1})); else res.send(JSON.stringify({'value': 0}));
+    if (!check && req.body.username != '' && req.body.username != ' ' && req.body.username != 'Введите имя' && users <= 2) res.send(JSON.stringify({'value': 1})); else res.send(JSON.stringify({'value': 0}));
   });
 });
-
 
 app.post('/connectPlayer',jsonParser, function(req, res) {
   // console.log(req);
@@ -67,7 +70,7 @@ app.post('/connectPlayer',jsonParser, function(req, res) {
     host: "localhost",
     user: "root",
     database: "users",
-    password: "root"
+    password: "YOUR_PASSWORD"
   });
 
   connection.connect(function(err){
@@ -99,7 +102,7 @@ app.post('/connectPlayer',jsonParser, function(req, res) {
         } 
       }
     }
-    if (!check) res.send(JSON.stringify({'value': 0})); else res.send(JSON.stringify({'value': 1}));
+    if (!check || users > 2) res.send(JSON.stringify({'value': 0})); else res.send(JSON.stringify({'value': 1}));
   });
 });
 
@@ -111,7 +114,7 @@ app.post('/newPlayer',jsonParser, function(req, res) {
     host: "localhost",
     user: "root",
     database: "users",
-    password: "root"
+    password: "YOUR_PASSWORD"
   });
 
   connection.connect(function(err){
@@ -150,7 +153,7 @@ app.post('/newPlayer',jsonParser, function(req, res) {
 
         connection.destroy();
       });
-      res.send(JSON.stringify({connection: 1}));
+      if (users <= 2)res.send(JSON.stringify({connection: 1})); else res.send(JSON.stringify({connection: 0}));
     } else {
       res.send(JSON.stringify({connection: 0}));
     }
