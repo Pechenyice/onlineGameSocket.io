@@ -5,6 +5,26 @@ window.onload = () => {
     var canBeConnected = 0;
 
 
+    // var test = document.getElementById('test');
+    // test.style.backgroundColor = 'red';
+    // test.style.width = '222px';
+    // test.style.height = '222px';
+    // test.style.top = '0px';
+    // console.log(test);
+    // // test.onclick = ()=>{
+    // //     alert('blya');
+    // // }
+    // test.addEventListener('click', () => {
+    //     alert('here');
+    //     var xml = new XMLHttpRequest();
+    //     xml.open('POST', '/test');
+    //     // xml.setRequestHeader('content-type');
+    //     xml.send();
+    //     xml.onload = () => {
+    //         document.write(xml.response);
+    //     }
+    // });
+
     var guestButton = document.getElementById("guestButton");
     guestButton.addEventListener('click', () => {
         document.getElementById('guestName').style.opacity = '1';
@@ -22,6 +42,33 @@ window.onload = () => {
         setTimeout(() => {
             guestButton.innerHTML = "<p>Confirm</p>";
         }, 500);
+        // guestButton.removeEventListener();
+        guestButton.addEventListener('click', () => {
+            var xhr = new XMLHttpRequest();
+            xhr.open('post', '/newGuestName');
+            xhr.setRequestHeader("Content-type", "application/json");
+            // alert(JSON.stringify({username: guestName.value}));
+            xhr.send(JSON.stringify({username: guestName.value}));
+            xhr.onload = () => {
+            // alert(JSON.parse(xhr.response).value);
+            canBeConnected = JSON.parse(xhr.response).value;
+            if (canBeConnected) {
+                var xml = new XMLHttpRequest();
+                xml.open('get', '/game');
+                xml.send();
+                xml.onload = () => {
+                    document.write(xml.response);
+                }
+            } else {
+                var xml = new XMLHttpRequest();
+                xml.open('get', '/notFound');
+                xml.send();
+                xml.onload = () => {
+                    document.write(xml.response);
+                }
+            }
+        }
+        });
     });
 
     var backRegister = document.getElementById('backRegister');
@@ -170,18 +217,6 @@ window.onload = () => {
         if (guestName.value == "" || guestName.value == " ") {
             guestName.value = "Введите имя";
         } else {
-            var xhr = new XMLHttpRequest();
-            xhr.open('post', '/newUserName');
-            xhr.setRequestHeader("Content-type", "application/json");
-            // alert(JSON.stringify({username: guestName.value}));
-            xhr.send(JSON.stringify({username: guestName.value}));
-            xhr.onload = () => {
-                // alert(JSON.parse(xhr.response).value);
-                canBeConnected = JSON.parse(xhr.response).value;
-                if (canBeConnected) {
-                    document.getElementById('guestCheck').setAttribute('href', '/game');
-                }
-            }
         }
     });
 

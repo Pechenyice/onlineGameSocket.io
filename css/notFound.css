@@ -1,0 +1,107 @@
+body {
+    background-color: #7CACE1;
+}
+
+#mainText {
+    width: 50%;
+    min-width: max-content;
+    font-size: 130px;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    letter-spacing: 4px;
+    color: rgba(255, 255, 255, .7);
+    /* background-color: saddlebrown; */
+    text-align: center;
+    position: absolute;
+    left: 25%;
+    top: 15%;
+}
+
+#describeText {
+    width: 50%;
+    min-width: max-content;
+    font-size: 24px;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 1);
+    /* background-color: saddlebrown; */
+    text-align: center;
+    position: absolute;
+    left: 25%;
+    top: 50%;
+}
+
+#trash {
+    width: 10%;
+    min-width: max-content;
+    font-size: 80px;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    letter-spacing: 3px;
+    color: rgba(255, 255, 255, .7);
+    /* background-color: saddlebrown; */
+    text-align: center;
+    position: absolute;
+    left: 20%;
+    top: 20%;
+    transform: rotateZ(60deg);
+}
+
+#trash1 {
+    width: 10%;
+    min-width: max-content;
+    font-size: 120px;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    letter-spacing: 3px;
+    color: rgba(255, 255, 255, .7);
+    /* background-color: saddlebrown; */
+    text-align: center;
+    position: absolute;
+    right: 15%;
+    top: 45%;
+    transform: rotateZ(30deg);
+}
+
+#trash2 {
+    width: 10%;
+    min-width: max-content;
+    font-size: 120px;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    letter-spacing: 3px;
+    color: rgba(255, 255, 255, .7);
+    /* background-color: saddlebrown; */
+    text-align: center;
+    position: absolute;
+    right: 30%;
+    top: 5%;
+    transform: rotateZ(15deg);
+}
+
+#back {
+    width: 240px;
+    height: 70px;
+    border-radius: 20px;
+    border: 3px solid white;
+    font-size: 22px;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    /* letter-spacing: 2px; */
+    color: white;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 10%;
+    left: calc(50% - 120px);
+    transition: .5s;
+}
+
+#back:hover {
+    transition: .5s;
+    background-color: #fff;
+    color: #7CACE1;
+    box-shadow: 0 0 25px white;
+}
+
+#back p {
+    padding: 0;
+    margin: 0;
+    margin: auto;
+}

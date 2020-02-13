@@ -18,6 +18,55 @@ var connection = mysql.createConnection({
 var users = [];
 var needToCreate = 1;
 
+
+var username;
+
+app.post('/newGuestName',jsonParser, function(req, res) {
+  // console.log(req);
+  // console.log(req.body);
+  username = req.body.username;
+  
+  connection = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    database: "users",
+    password: "root"
+  });
+
+  connection.connect(function(err){
+    if (err) {
+      return console.error("Ошибка: " + err.message);
+    }
+    else{
+      console.log("Подключение к серверу MySQL успешно установлено");
+    }
+  });
+  var check = 0;
+  connection.query("SELECT * FROM players", function(err, results) {
+    users = results;
+    for (var i = 0; i < results.length; i++) {
+      
+      if (results[i].nickname == req.body.username) {
+        console.log('willBE 0');
+        res.send(JSON.stringify({'value': 0}));
+        check = 1;
+        break;
+      }
+    }
+    if (!check) res.send(JSON.stringify({'value': 1}));
+  });
+});
+
+app.post('/newUserName',jsonParser, function(req, res) {
+  // console.log(req);
+  // console.log(req.body);
+  username = req.body.username;
+  // console.log(JSON.parse(req.body).username);
+  console.log(username);
+  res.send(JSON.stringify({'value': 1}));
+});
+
+
 app.post('/newPlayer',jsonParser, function(req, res) {
 
   connection = mysql.createConnection({
@@ -65,6 +114,18 @@ app.post('/newPlayer',jsonParser, function(req, res) {
 
 });
 
+// app.post('/test', (req, res) => {
+//   console.log('and here');
+//   res.redirect('/game');
+// });
+
+app.get('/notFound', function(req, res) {
+  // console.log('try');
+  // console.log(req.body);
+  res.sendFile(__dirname + "/html/notFound.html");
+});
+
+
 app.get('/game', function(req, res) {
   // console.log('try');
   // console.log(req.body);
@@ -77,16 +138,6 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 
-var username;
-
-app.post('/newUserName',jsonParser, function(req, res) {
-  // console.log(req);
-  // console.log(req.body);
-  username = req.body.username;
-  // console.log(JSON.parse(req.body).username);
-  console.log(username);
-  res.send(JSON.stringify({'value': 1}));
-});
 
 app.use(express.urlencoded());
 
