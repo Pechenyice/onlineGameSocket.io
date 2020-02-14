@@ -1,22 +1,22 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const app = express();
-const mysql = require("mysql2");
+// const mysql = require("mysql2");
 
 
 app.use(express.static(__dirname + '/'));
 
 var jsonParser = bodyParser.json();
   
-var connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  database: "users",
-  password: 'YOUR_PASSWORD'
-});
+// var connection = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   database: "users",
+//   password: 'YOUR_PASSWORD'
+// });
 
-var usersDB = [];
-var needToCreate = 1;
+// var usersDB = [];
+// var needToCreate = 1;
 
 
 var username;
@@ -26,136 +26,142 @@ app.post('/newGuestName',jsonParser, function(req, res) {
   // console.log(req.body);
   username = req.body.username;
   
-  connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    database: "users",
-    password: "YOUR_PASSWORD"
-  });
+  // connection = mysql.createConnection({
+  //   host: "localhost",
+  //   user: "root",
+  //   database: "users",
+  //   password: "YOUR_PASSWORD"
+  // });
 
-  connection.connect(function(err){
-    if (err) {
-      return console.error("Ошибка: " + err.message);
-    }
-    else{
+  // connection.connect(function(err){
+  //   if (err) {
+  //     return console.error("Ошибка: " + err.message);
+  //   }
+  //   else{
       
-    }
-  });
+  //   }
+  // });
   var check = 0;
-  connection.query("SELECT * FROM players", function(err, results) {
-    usersDB = results;
-    for (var i = 0; i < results.length; i++) {
+  // connection.query("SELECT * FROM players", function(err, results) {
+  //   usersDB = results;
+  //   for (var i = 0; i < results.length; i++) {
       
-      if (results[i].nickname == req.body.username) {
+  //     if (results[i].nickname == req.body.username) {
         
-        // res.send(JSON.stringify({'value': 0}));
+  //       // res.send(JSON.stringify({'value': 0}));
+  //       check = 1;
+  //       break;
+  //     }
+  //   }
+    for (var key in clients) {
+      if (clients[key].userName == req.body.username) {
         check = 1;
         break;
       }
     }
     if (!check && req.body.username != '' && req.body.username != ' ' && req.body.username != 'Введите имя' && users <= 2) res.send(JSON.stringify({'value': 1})); else res.send(JSON.stringify({'value': 0}));
   });
-});
+// });
 
-app.post('/connectPlayer',jsonParser, function(req, res) {
-  // console.log(req);
-  // console.log(req.body);
-  username = req.body.name;
+// app.post('/connectPlayer',jsonParser, function(req, res) {
+//   // console.log(req);
+//   // console.log(req.body);
+//   username = req.body.name;
   
-  connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    database: "users",
-    password: "YOUR_PASSWORD"
-  });
+//   connection = mysql.createConnection({
+//     host: "localhost",
+//     user: "root",
+//     database: "users",
+//     password: "YOUR_PASSWORD"
+//   });
 
-  connection.connect(function(err){
-    if (err) {
-      return console.error("Ошибка: " + err.message);
-    }
-    else{
+//   connection.connect(function(err){
+//     if (err) {
+//       return console.error("Ошибка: " + err.message);
+//     }
+//     else{
       
-    }
-  });
-  var check = 0;
-  connection.query("SELECT * FROM players", function(err, results) {
-    usersDB = results;
-    for (var i = 0; i < results.length; i++) {
+//     }
+//   });
+//   var check = 0;
+//   connection.query("SELECT * FROM players", function(err, results) {
+//     usersDB = results;
+//     for (var i = 0; i < results.length; i++) {
       
-      if (results[i].nickname == req.body.name && results[i].password == req.body.password) {
-        check = 1;
-        break;
-      }
+//       if (results[i].nickname == req.body.name && results[i].password == req.body.password) {
+//         check = 1;
+//         break;
+//       }
 
-    }
-    // console.log(clients);
-    if (check) {
-      for (var key in clients) {
-        // console.log(clients[key].userName);
-        if (req.body.name == clients[key].userName) {
-          check = 0;
-          break;
-        } 
-      }
-    }
-    if (!check || users > 2) res.send(JSON.stringify({'value': 0})); else res.send(JSON.stringify({'value': 1}));
-  });
-});
+//     }
+//     // console.log(clients);
+//     if (check) {
+//       for (var key in clients) {
+//         // console.log(clients[key].userName);
+//         if (req.body.name == clients[key].userName) {
+//           check = 0;
+//           break;
+//         } 
+//       }
+//     }
+//     if (!check || users > 2) res.send(JSON.stringify({'value': 0})); else res.send(JSON.stringify({'value': 1}));
+//   });
+// });
 
 
-app.post('/newPlayer',jsonParser, function(req, res) {
-  username = req.body.name;
+// app.post('/newPlayer',jsonParser, function(req, res) {
+//   username = req.body.name;
 
-  connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    database: "users",
-    password: "YOUR_PASSWORD"
-  });
+//   connection = mysql.createConnection({
+//     host: "localhost",
+//     user: "root",
+//     database: "users",
+//     password: "YOUR_PASSWORD"
+//   });
 
-  connection.connect(function(err){
-    if (err) {
-      return console.error("Ошибка: " + err.message);
-    }
-    else{
+//   connection.connect(function(err){
+//     if (err) {
+//       return console.error("Ошибка: " + err.message);
+//     }
+//     else{
       
-    }
-  });
+//     }
+//   });
 
-  connection.query("SELECT * FROM players", function(err, results) {
-    usersDB = results;
-    for (var i = 0; i < results.length; i++) {
+//   connection.query("SELECT * FROM players", function(err, results) {
+//     usersDB = results;
+//     for (var i = 0; i < results.length; i++) {
       
-      if (results[i].nickname == req.body.name) {
-        needToCreate = 0;
-        break;
-      } else needToCreate = 1;
-    }
+//       if (results[i].nickname == req.body.name) {
+//         needToCreate = 0;
+//         break;
+//       } else needToCreate = 1;
+//     }
     
-    if (needToCreate) {
-      for (var key in clients) {
-        if (req.body.name == clients[key].userName) {
-          needToCreate = 0;
-          break;
-        }
-      }
-    }
+//     if (needToCreate) {
+//       for (var key in clients) {
+//         if (req.body.name == clients[key].userName) {
+//           needToCreate = 0;
+//           break;
+//         }
+//       }
+//     }
 
-    if (needToCreate && req.body.name != '' && req.body.name != ' ' && req.body.name != 'Введите имя' && req.body.password != '' && req.body.password != ' ' && req.body.password != 'Введите пароль') {
-      var iter = 0;
-      var newUser = [req.body.name, req.body.password];
-      const sql = "INSERT INTO players(nickname, password) VALUES(?, ?)";
-      connection.query(sql, newUser, function(err, results) {
+//     if (needToCreate && req.body.name != '' && req.body.name != ' ' && req.body.name != 'Введите имя' && req.body.password != '' && req.body.password != ' ' && req.body.password != 'Введите пароль') {
+//       var iter = 0;
+//       var newUser = [req.body.name, req.body.password];
+//       const sql = "INSERT INTO players(nickname, password) VALUES(?, ?)";
+//       connection.query(sql, newUser, function(err, results) {
 
-        connection.destroy();
-      });
-      if (users <= 2)res.send(JSON.stringify({connection: 1})); else res.send(JSON.stringify({connection: 0}));
-    } else {
-      res.send(JSON.stringify({connection: 0}));
-    }
-  });
+//         connection.destroy();
+//       });
+//       if (users <= 2)res.send(JSON.stringify({connection: 1})); else res.send(JSON.stringify({connection: 0}));
+//     } else {
+//       res.send(JSON.stringify({connection: 0}));
+//     }
+//   });
 
-});
+// });
 
 // app.post('/test', (req, res) => {
 //   console.log('and here');
